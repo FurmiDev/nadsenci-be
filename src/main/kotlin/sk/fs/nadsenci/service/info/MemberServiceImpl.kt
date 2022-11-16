@@ -1,55 +1,24 @@
 package sk.fs.nadsenci.service.info
 
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import sk.fs.nadsenci.repository.MemberDAO
 import sk.fs.nadsenci.model.Gender
 import sk.fs.nadsenci.model.Role
 import sk.fs.nadsenci.model.info.Member
+import java.util.*
+import javax.transaction.Transactional
 
 @Service
-class MemberServiceImpl : MemberService {
-    override fun getAll(): List<Member>? {
-        TODO("Not yet implemented")
-    }
+@Transactional
+class MemberServiceImpl(var memberDAO: MemberDAO) : MemberService {
+    override fun getAll(): MutableIterable<Member> = memberDAO.findAll()
 
-    override fun getMemberById(memberId: String): Member? = Member(
-        Gender.MALE,
-        "Ing",
-        "Matej",
-        "Furmanek",
-        "Furmi",
-        null,
-        "matej.furmanek@gmail.com",
-        "",
-        listOf("Vrsatec"),
-        Role.ADMIN
-    )
+    override fun getMemberById(memberId: Long): Member? = memberDAO.findByIdOrNull(memberId)
 
-    override fun getMembersByGender(gender: String): List<Member>?  = listOf(
-        Member(
-            Gender.MALE,
-            "Ing",
-            "Matej",
-            "Furmanek",
-            "Furmi",
-            null,
-            "matej.furmanek@gmail.com",
-            "",
-            listOf("Vrsatec"),
-            Role.ADMIN
-        ),
-        Member(
-            Gender.MALE,
-            "Ing",
-            "Martin",
-            "Matuscin",
-            "Scino",
-            null,
-            "martin.matuscin@gmail.com",
-            "",
-            listOf("Machnáčiku", "Trenčane", "Karpatoch"),
-            Role.ADMIN
-        )
-    )
+    override fun getMemberByNickname(nickname: String): Member? = memberDAO.findByNickName(nickname)
+
+    override fun getMembersByGender(gender: Gender): List<Member>? = memberDAO.findMembersByGender(gender)
 
 
 }
