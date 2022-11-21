@@ -1,6 +1,8 @@
 package sk.fs.nadsenci.model.galery
 
 import org.hibernate.Hibernate
+import java.time.Instant
+import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -11,9 +13,10 @@ data class Photo(
     val id: Long? = null,
     val location: String,
     val description: String?,
-    val title: String?
+    val title: String?,
+    val createdDate: Date
 ) {
-    constructor() : this(null,"","","")
+    constructor() : this(null, "", "", "", Date.from(Instant.now()))
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

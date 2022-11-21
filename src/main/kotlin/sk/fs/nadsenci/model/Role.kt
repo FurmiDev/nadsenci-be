@@ -1,5 +1,5 @@
-package sk.fs.nadsenci.model 
+package sk.fs.nadsenci.model
 
-enum class Role{
+enum class Role {
     ADMIN, MANAGER, MEMBER, VISITOR
 }

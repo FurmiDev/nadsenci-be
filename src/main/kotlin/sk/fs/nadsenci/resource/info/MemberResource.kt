@@ -17,7 +17,7 @@ class MemberResource(
 ) {
 
     @GetMapping("/all")
-    fun getAllMembers(): ResponseEntity<MutableIterable<Member>> = ResponseEntity.ok(memberService.getAll())
+    fun getAllMembers(): ResponseEntity<List<Member>> = ResponseEntity.ok(memberService.getAll())
 
     @GetMapping("/{memberId}")
     fun getMemberById(@PathVariable memberId: Long): ResponseEntity<Member> =
